@@ -3,7 +3,6 @@ package com.ToDoListApp.ToDoListApp.tarefa.controller;
 import com.ToDoListApp.ToDoListApp.tarefa.Tarefa;
 import com.ToDoListApp.ToDoListApp.tarefa.service.TarefaServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

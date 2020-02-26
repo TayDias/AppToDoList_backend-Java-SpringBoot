@@ -14,7 +14,9 @@ public class Tarefa {
     private Long id;
     private String nome;
     private String detalhes;
-    private int status;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
 
     @JsonIgnore
     @ManyToOne
@@ -26,7 +28,7 @@ public class Tarefa {
     public Tarefa(String nome, String detalhes, Status status){
         this.nome = nome;
         this.detalhes = detalhes;
-        this.status = (status == null) ? null : status.getCodigo();
+        this.status = status;
     }
 
     public Long getId() {
@@ -53,11 +55,11 @@ public class Tarefa {
         this.detalhes = detalhes;
     }
 
-    public int getStatus() {
-        return status;
+    public String getStatus() {
+        return status.getDescricao();
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

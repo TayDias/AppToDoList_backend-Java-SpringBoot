@@ -1,9 +1,9 @@
 package com.ToDoListApp.ToDoListApp.enums;
 
 public enum Status {
-    AFAZER(1, "A Fazer"),
-    EMPROGRESSO(2, "Em Progresso"),
-    FEITO(3, "Feito");
+    AFAZER(0, "A Fazer"),
+    EMPROGRESSO(1, "Em Progresso"),
+    FEITO(2, "Feito");
 
     private int codigo;
     private String descricao;
@@ -21,13 +21,13 @@ public enum Status {
         return descricao;
     }
 
-    public static Status toEnum(Integer codigo){
+    public static String toEnum(Integer codigo){
         if (codigo == null){
             return null;
         }
         for (Status s: Status.values()){
             if (codigo.equals(s.getCodigo())){
-                return s;
+                return s.getDescricao();
             }
         }
         throw new IllegalArgumentException("Id inválido: " + codigo);
