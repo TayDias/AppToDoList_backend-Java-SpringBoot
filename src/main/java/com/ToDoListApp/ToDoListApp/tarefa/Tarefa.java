@@ -2,6 +2,7 @@ package com.ToDoListApp.ToDoListApp.tarefa;
 
 import com.ToDoListApp.ToDoListApp.enums.Status;
 import com.ToDoListApp.ToDoListApp.lista.Lista;
+import com.ToDoListApp.ToDoListApp.participante.Participante;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -22,6 +23,10 @@ public class Tarefa {
     @ManyToOne
     @JoinColumn(name = "lista_id")
     private Lista lista;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "responsavel_id", referencedColumnName = "id")
+    private Participante participante;
 
     public Tarefa(){}
 
@@ -69,5 +74,13 @@ public class Tarefa {
 
     public void setLista(Lista lista) {
         this.lista = lista;
+    }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
     }
 }

@@ -1,6 +1,7 @@
 package com.ToDoListApp.ToDoListApp.participante;
 
 import com.ToDoListApp.ToDoListApp.lista.Lista;
+import com.ToDoListApp.ToDoListApp.tarefa.Tarefa;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,6 +18,10 @@ public class Participante {
     @ManyToOne
     @JoinColumn(name = "lista_id")
     private Lista lista;
+
+    @JsonIgnore
+    @OneToOne (mappedBy = "participante")
+    private Tarefa tarefa;
 
     public Participante(){
     }
@@ -41,4 +46,11 @@ public class Participante {
         this.lista = lista;
     }
 
+    public Tarefa getTarefa() {
+        return tarefa;
+    }
+
+    public void setTarefa(Tarefa tarefa) {
+        this.tarefa = tarefa;
+    }
 }

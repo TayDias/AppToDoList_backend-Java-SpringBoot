@@ -1,8 +1,11 @@
 package com.ToDoListApp.ToDoListApp.tarefa.controller;
 
+import com.ToDoListApp.ToDoListApp.participante.Participante;
+import com.ToDoListApp.ToDoListApp.participante.service.ParticipanteServices;
 import com.ToDoListApp.ToDoListApp.tarefa.Tarefa;
 import com.ToDoListApp.ToDoListApp.tarefa.service.TarefaServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,9 @@ public class TarefaController {
 
     @Autowired
     private TarefaServices tarefaServices;
+
+    @Autowired
+    private ParticipanteServices participanteServices;
 
     @GetMapping
     public ResponseEntity<List<Tarefa>> findAll(@Valid @RequestParam Long idLista){
@@ -33,5 +39,13 @@ public class TarefaController {
         Tarefa tarefa = tarefaServices.findById(id);
         tarefaServices.delete(tarefa);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(path = "/assumir")
+    public ResponseEntity<String> assumir(@Valid @RequestParam (value = "id") Long idT, @Valid @RequestParam Long idP){
+        Tarefa tarefa = tarefaServices.findById(idT);
+        Participante participante = participanteServices.findById(idP);
+        tarefaServices.assumirTarefa(tarefa,participante);
+        return new ResponseEntity<>("Tarefa assumida", HttpStatus.OK);
     }
 }
