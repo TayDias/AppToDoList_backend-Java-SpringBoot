@@ -1,5 +1,6 @@
 package com.ToDoListApp.ToDoListApp.usuario.service;
 
+import com.ToDoListApp.ToDoListApp.participante.Participante;
 import com.ToDoListApp.ToDoListApp.usuario.Usuario;
 import com.ToDoListApp.ToDoListApp.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 public class UsuarioServices {
-
+    
     private final UsuarioRepository usuarioRepository;
 
     @Autowired
@@ -54,5 +55,20 @@ public class UsuarioServices {
         }
 
         return false;
+    }
+
+    public List<Usuario> usersOutList(List<Participante> participantes){
+        List<Usuario> todosUsuarios = getAll();
+
+        for(Participante participante: participantes){
+            for(Usuario usuario: todosUsuarios){
+                if(participante.getUsuarioId()==usuario.getId()){
+                    todosUsuarios.remove(usuario);
+                    break;
+                }
+            }
+        }
+
+        return todosUsuarios;
     }
 }
