@@ -1,6 +1,7 @@
 package com.ToDoListApp.ToDoListApp.usuario;
 
 import com.ToDoListApp.ToDoListApp.lista.Lista;
+import com.ToDoListApp.ToDoListApp.participante.Participante;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -20,6 +21,10 @@ public class Usuario {
     @JsonIgnore
     @OneToMany(cascade={CascadeType.ALL}, mappedBy = "usuario")
     private List<Lista> listas;
+
+    @JsonIgnore
+    @OneToOne (mappedBy = "usuario")
+    private Participante participante;
 
     public Usuario(){
     }

@@ -2,6 +2,7 @@ package com.ToDoListApp.ToDoListApp.participante;
 
 import com.ToDoListApp.ToDoListApp.lista.Lista;
 import com.ToDoListApp.ToDoListApp.tarefa.Tarefa;
+import com.ToDoListApp.ToDoListApp.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -12,7 +13,6 @@ public class Participante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long usuarioId;
 
     @JsonIgnore
     @ManyToOne
@@ -23,19 +23,16 @@ public class Participante {
     @OneToOne (mappedBy = "participante")
     private Tarefa tarefa;
 
+    @OneToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+
+    public Participante(Lista lista, Usuario usuario){
+        this.lista = lista;
+        this.usuario = usuario;
+    }
+
     public Participante(){
-    }
-
-    public Participante(Long usuarioId){
-        this.usuarioId = usuarioId;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     public Lista getLista() {
@@ -52,5 +49,21 @@ public class Participante {
 
     public void setTarefa(Tarefa tarefa) {
         this.tarefa = tarefa;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

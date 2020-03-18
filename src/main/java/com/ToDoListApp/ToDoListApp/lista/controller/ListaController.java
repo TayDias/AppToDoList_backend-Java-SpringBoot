@@ -2,6 +2,7 @@ package com.ToDoListApp.ToDoListApp.lista.controller;
 
 import com.ToDoListApp.ToDoListApp.lista.Lista;
 import com.ToDoListApp.ToDoListApp.lista.service.ListaServices;
+import com.ToDoListApp.ToDoListApp.participante.service.ParticipanteServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class ListaController {
 
     @Autowired
     private ListaServices listaServices;
+
+    @Autowired
+    private ParticipanteServices participanteServices;
 
     @GetMapping
     public ResponseEntity<List<Lista>> findAll(@Valid @RequestParam Long idUser){
@@ -39,7 +43,9 @@ public class ListaController {
     @PostMapping(path = "/altStatus")
     public ResponseEntity<String> changeStatus(@Valid @RequestParam(value = "id") Long id){
         Lista lista = listaServices.findById(id);
+        participanteServices.removeTodosParticipantes(lista);
         listaServices.changeStatus(lista);
+        participanteServices.addProprietario(lista);
         return new ResponseEntity<>("Status alterado para "+ lista.isPublica(), HttpStatus.OK);
     }
 }

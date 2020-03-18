@@ -3,6 +3,7 @@ package com.ToDoListApp.ToDoListApp.participante.controller;
 import com.ToDoListApp.ToDoListApp.participante.Participante;
 import com.ToDoListApp.ToDoListApp.participante.service.ParticipanteServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,15 +24,16 @@ public class ParticipanteController {
     }
 
     @PutMapping(path = "/adicionar")
-    public ResponseEntity<Void> save(@Valid @RequestParam Long idUser, @Valid @RequestParam Long idLista){
+    public ResponseEntity<String> save(@Valid @RequestParam Long idUser, @Valid @RequestParam Long idLista){
         participanteService.save(idUser,idLista);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("Participante adicionado a lista", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/remover")
-    public ResponseEntity<Void> delete(@Valid @RequestParam(value = "id")Long idPart){
+    public ResponseEntity<String> delete(@Valid @RequestParam(value = "id")Long idPart){
         Participante participante = participanteService.findById(idPart);
+        //Remover participante das tarefas assumidas
         participanteService.delete(participante);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("Participante removido da lista", HttpStatus.OK);
     }
 }

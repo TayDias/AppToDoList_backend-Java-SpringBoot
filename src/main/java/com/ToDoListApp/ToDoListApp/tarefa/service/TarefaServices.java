@@ -40,7 +40,7 @@ public class TarefaServices {
             tarefaRepository.save(tarefa);
         }
         else{
-            if(tarefa.getParticipante().getUsuarioId() == p.getUsuarioId()){
+            if(tarefa.getParticipante().getId() == p.getId()){
                 tarefa.setParticipante(null);
                 tarefaRepository.save(tarefa);
             }

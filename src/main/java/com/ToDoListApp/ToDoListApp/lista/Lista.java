@@ -26,10 +26,6 @@ public class Lista {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    //@JsonIgnore
-    //@ManyToMany(cascade={CascadeType.ALL}, mappedBy = "lista")
-    //private List<Participante> participantes;
-
     @JsonIgnore
     @OneToMany(cascade={CascadeType.ALL}, mappedBy = "lista")
     private List<Participante> participantes;

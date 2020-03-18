@@ -29,16 +29,16 @@ public class TarefaController {
     }
 
     @PutMapping(path = "/salvar")
-    public ResponseEntity<Void> save(@Valid @RequestBody Tarefa tarefa, @Valid @RequestParam Long idLista){
+    public ResponseEntity<String> save(@Valid @RequestBody Tarefa tarefa, @Valid @RequestParam Long idLista){
         tarefaServices.save(tarefa, idLista);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("Tarefa salva com sucesso", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/deletar")
-    public ResponseEntity<Void> delete(@Valid @RequestParam (value = "id") Long id){
+    public ResponseEntity<String> delete(@Valid @RequestParam (value = "id") Long id){
         Tarefa tarefa = tarefaServices.findById(id);
         tarefaServices.delete(tarefa);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("Tarefa deletada", HttpStatus.OK);
     }
 
     @PostMapping(path = "/assumir")

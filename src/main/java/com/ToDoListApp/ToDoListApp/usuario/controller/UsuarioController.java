@@ -1,6 +1,7 @@
 package com.ToDoListApp.ToDoListApp.usuario.controller;
 
-import com.ToDoListApp.ToDoListApp.participante.Participante;
+import com.ToDoListApp.ToDoListApp.lista.Lista;
+import com.ToDoListApp.ToDoListApp.lista.service.ListaServices;
 import com.ToDoListApp.ToDoListApp.participante.service.ParticipanteServices;
 import com.ToDoListApp.ToDoListApp.usuario.Usuario;
 import com.ToDoListApp.ToDoListApp.usuario.service.UsuarioServices;
@@ -23,6 +24,9 @@ public class UsuarioController {
     private final ParticipanteServices participanteServices;
 
     @Autowired
+    private ListaServices listaServices;
+
+    @Autowired
     public UsuarioController(UsuarioServices usuarioServices, ParticipanteServices participanteServices){
         this.usuarioServices = usuarioServices;
         this.participanteServices = participanteServices;
@@ -34,7 +38,7 @@ public class UsuarioController {
         return ResponseEntity.ok().body(users);
     }
 
-    @PostMapping(value = "/salvar")
+    @PostMapping(value = "/save")
     public ResponseEntity<String> save(@Valid @RequestBody Usuario usuario){
         usuarioServices.save(usuario);
         return new ResponseEntity<>("Salvo com sucesso", HttpStatus.OK);
@@ -42,8 +46,8 @@ public class UsuarioController {
 
     @GetMapping(value = "/outList")
     public ResponseEntity<List<Usuario>> getUsersOutList(@Valid @RequestParam (value = "idList") Long idList){
-        List<Participante> participantes = participanteServices.findAll(idList);
-        List<Usuario> usersOut = usuarioServices.usersOutList(participantes);
+        Lista lista = listaServices.findById(idList);
+        List<Usuario> usersOut = usuarioServices.usersOutList(lista);
         return  ResponseEntity.ok().body(usersOut);
     }
 }
