@@ -36,10 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
+                .antMatchers(HttpMethod.POST, "/usuario/save").permitAll()
                 //linha de testes postman
-                .antMatchers(HttpMethod.POST, "/lista/altStatus").permitAll()
-                //
+                //.antMatchers(HttpMethod.GET, "/lista").permitAll(
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new LoginFilter("/login", authenticationManager()),

@@ -27,6 +27,7 @@ public class AuthenticationService {
 
     static public Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
+        //Comentar de 31 á 44 e descomentar 45 para testar sem autenticação
         if (token != null) {
             String user = Jwts.parser()
                     .setSigningKey(SIGNINGKEY)
@@ -41,5 +42,6 @@ public class AuthenticationService {
             }
         }
         return null;
+        //return new UsernamePasswordAuthenticationToken(null, null, emptyList());
     }
 }

@@ -33,9 +33,9 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> getAll(){
-        List<Usuario> users = usuarioServices.getAll();
-        return ResponseEntity.ok().body(users);
+    public ResponseEntity<Usuario> getUser(@Valid @RequestParam (value = "username") String username){
+        Usuario user = usuarioServices.getUser(username);
+        return ResponseEntity.ok().body(user);
     }
 
     @PostMapping(value = "/save")

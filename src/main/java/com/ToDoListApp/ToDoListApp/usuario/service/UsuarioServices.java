@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 public class UsuarioServices {
 
+    @Autowired
     private final UsuarioRepository usuarioRepository;
 
     @Autowired
@@ -46,9 +47,8 @@ public class UsuarioServices {
         return authentication.getName();
     }
 
-    public Usuario getUser(String usuarioLogado){
-        //return usuarioRepository.findByUsername(usuarioLogado).orElseThrow(() -> null);
-        return null;
+    public Usuario getUser(String username){
+        return usuarioRepository.findByUsuario(username).get();
     }
 
     public boolean verificaUsernameExistente(String username){
